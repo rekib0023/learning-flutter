@@ -14,12 +14,9 @@ class Home extends StatelessWidget {
       backgroundColor: Colors.red[600],
     ),
     body: Center(
-      child: RaisedButton.icon(
+      child: IconButton(
         onPressed: () {},
-        icon: Icon(
-          Icons.mail
-        ),
-        label: Text('mail me'),
+        icon: Icon(Icons.alternate_email),
         color: Colors.amber,
         ),
     ),
