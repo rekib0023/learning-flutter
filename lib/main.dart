@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learning_flutter/constants.dart';
 
 void main() => runApp(MaterialApp(
   home: Home(),
@@ -12,44 +13,35 @@ class Home extends StatelessWidget {
       title: Text('my first app'),
       centerTitle: true,
       backgroundColor: Colors.red[600],
+      actions: <Widget>[
+        PopupMenuButton<String>(
+          onSelected: choiceAction,
+          itemBuilder: (BuildContext context) {
+            return Constants.choices.map((String choice) {
+              return PopupMenuItem<String>(
+                value: choice,
+                child: Text(choice),
+              );
+            }).toList();
+          },
+        ),
+      ],
     ),
-    body: Row(
-      children: <Widget>[
-        Expanded(
-          flex: 3,
-          child: Image.asset('assets/beach1.jpg')
-          ),
-        Expanded(
-          flex: 1,
-          child: Container(
-            padding: EdgeInsets.all(30.0),
-            color: Colors.cyan,
-            child: Text('1'),
-          ),
-        ),
-        Expanded(
-          flex: 1,
-          child: Container(
-            padding: EdgeInsets.all(30.0),
-            color: Colors.pinkAccent,
-            child: Text('2'),
-          ),
-        ),
-        Expanded(
-          flex: 1,
-          child: Container(
-            padding: EdgeInsets.all(30.0),
-            color: Colors.amber,
-            child: Text('3'),
-          ),
-        ),
-          ],
-        ),
-    floatingActionButton: FloatingActionButton(
-      onPressed: () {},
-      child: Text('click'),
-      backgroundColor: Colors.red[600],
-      ),
   );
   }
+
+
+  void choiceAction(String choice){
+    if(choice == Constants.Settings){
+      // TODO create settings model
+      print('settings');
+    } else if(choice == Constants.Subscribe){
+      // TODO create settings model
+      print('subscribe');
+    } else if(choice == Constants.SignOut){
+      // TODO create settings model
+      print('sign out');
+    }
+  }
+
 }
