@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:learning_flutter/CameraPage.dart';
+import 'package:learning_flutter/HomePage.dart';
+import 'package:learning_flutter/ProfilePage.dart';
+import 'package:learning_flutter/SearchPage.dart';
 import 'package:learning_flutter/constants.dart';
 
 void main() => runApp(MaterialApp(
@@ -13,24 +17,31 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   int _currentIndex = 0;
-
-  final tabs = [
-    Center(child: Text('Home'),),
-    Center(child: Text('Search'),),
-    Center(child: Text('Camera'),),
-    Center(child: Text('Profile'),),
+  final List<Widget> _mywidget = [
+    HomePage(),
+    SearchPage(),
+    CameraPage(),
+    ProfilePage(),
   ];
+
+  // final tabs = [
+  //   Center(child: Text('Home'),),
+  //   Center(child: Text('Search'),),
+  //   Center(child: Text('Camera'),),
+  //   Center(child: Text('Profile'),),
+  // ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('my first app'),
-        centerTitle: true,
-      ),
-      body: tabs[_currentIndex],
+      body: _mywidget[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex=index;
+          });
+        },
         type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
@@ -50,11 +61,6 @@ class _HomeState extends State<Home> {
             title: Text('Profile'),
           ),
         ],
-        onTap: (index) {
-          setState(() {
-            _currentIndex=index;
-          });
-        },
       ),
     );
   }
