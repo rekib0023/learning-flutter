@@ -1,17 +1,7 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:learning_flutter/CameraPage.dart';
-import 'package:learning_flutter/HomePage.dart';
-import 'package:learning_flutter/ProfilePage.dart';
-import 'package:learning_flutter/SearchPage.dart';
-import 'package:learning_flutter/constants.dart';
 
 void main() => runApp(MaterialApp(
-      routes: {
-        '/home': (context) => HomePage(),
-        '/search': (context) => SearchPage(),
-        '/camera': (context) => CameraPage(),
-        '/profile': (context) => ProfilePage(),
-      },
       home: Home(),
     ));
 
@@ -21,118 +11,51 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  // int _currentIndex = 0;
-  // final List<Widget> _mywidget = [
-  //   HomePage(),
-  //   SearchPage(),
-  //   CameraPage(),
-  //   ProfilePage(),
-  // ];
-
-  // final tabs = [
-  //   Center(child: Text('Home'),),
-  //   Center(child: Text('Search'),),
-  //   Center(child: Text('Camera'),),
-  //   Center(child: Text('Profile'),),
-  // ];
+  List imgList = [
+    'https://images.unsplash.com/photo-1554629947-334ff61d85dc?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    'https://images.unsplash.com/photo-1534067783941-51c9c23ecefd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    'https://images.unsplash.com/photo-1505764761634-1d77b57e1966?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    'https://images.unsplash.com/photo-1545161296-d9c2c241f2ad?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjExMDk0fQ&auto=format&fit=crop&w=634&q=80',
+    'https://images.unsplash.com/photo-1542662565-7e4b66bae529?ixlib=rb-1.2.1&auto=format&fit=crop&w=564&q=80'
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My App'),
+        title: Text('MyApp'),
       ),
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            UserAccountsDrawerHeader(
-              accountName: Text("Rekib Ahmed"),
-              accountEmail: Text('something'),
-              currentAccountPicture: CircleAvatar(
-                backgroundColor: Colors.amber,
-                child: Text('P'),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          CarouselSlider(
+              options: CarouselOptions(
+                initialPage: 0,
+                height: 400,
+                enlargeCenterPage: true,
+                enableInfiniteScroll: false,
               ),
-            ),
-            ListTile(
-              title: Text('Home'),
-              trailing: Icon(Icons.home),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushNamed('/home');
-              },
-            ),
-            ListTile(
-              title: Text('Search'),
-              trailing: Icon(Icons.search),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushNamed('/search');
-              },
-            ),
-            ListTile(
-              title: Text('Camera'),
-              trailing: Icon(Icons.camera),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushNamed('/camera');
-              },
-            ),
-            ListTile(
-                title: Text('Profile'),
-                trailing: Icon(Icons.person),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).pushNamed('/profile');
-                }),
-            ListTile(
-              title: Text('Close'),
-              trailing: Icon(Icons.close),
-              onTap: () => Navigator.of(context).pop(),
-            ),
-          ],
-        ),
+              items: imgList.map((imgUrl) {
+                return Builder(
+                  builder: (BuildContext context) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.symmetric(horizontal: 10.0),
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Image.network(
+                        imgUrl,
+                        fit: BoxFit.fill,
+                      ),
+                    );
+                  },
+                );
+              }).toList()),
+        ],
       ),
-      // body: _mywidget[_currentIndex],
-      // bottomNavigationBar: BottomNavigationBar(
-      //   currentIndex: _currentIndex,
-      //   onTap: (index) {
-      //     setState(() {
-      //       _currentIndex=index;
-      //     });
-      //   },
-      //   type: BottomNavigationBarType.fixed,
-      //   items: [
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.home),
-      //       title: Text('Home'),
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.search),
-      //       title: Text('Search'),
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.camera),
-      //       title: Text('Camera'),
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.person),
-      //       title: Text('Profile'),
-      //     ),
-      //   ],
-      // ),
     );
-  }
-
-  void choiceAction(String choice) {
-    if (choice == Constants.Settings) {
-      // TODO create settings model
-      print('settings');
-    } else if (choice == Constants.Subscribe) {
-      // TODO create settings model
-      print('subscribe');
-    } else if (choice == Constants.SignOut) {
-      // TODO create settings model
-      print('sign out');
-    }
   }
 }
